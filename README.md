@@ -26,16 +26,19 @@ We have created some dashboards so you don’t have to and they are based upon t
 
 ## Getting started
 
-You can prepare Elasticsearch and the Cribl Stream configuration parts automatically using a `bootstrap.sh` script. Alternatively you can configure this manually as well.
+We provide 2 options to set you up quickly. 
 
-The dashboards need to be imported through Kibana’s UI.
+Option 1: You can prepare Elasticsearch and Cribl Stream automatically using a `bootstrap.sh` script. This is ideal for larger environments, to prevent having to configure many worker groups at the same time. 
+
+Option 2: You can quickly configure Elasticsearch and Cribl Stream this manually as well.
+
+For both options you will then have to manually commit and deploy Cribl Stream's changes and import the Dashboards into Kibana.
 
 You can then also choose to collect logs from the Leader separately as an optional step.
 
-## Bootstrap Script:
+## Option 1 - Bootstrap Script
 
-You can skip this if you wish to run the steps manually.
-This script will run the manual steps for every Stream worker group, which could save some time.
+<details><summary>This script will run the manual steps for every Stream worker group, which could save some time.</summary>
 
 Prerequisites for the script are: `Stream, Bash, jq, curl`
 
@@ -61,18 +64,23 @@ Files to run the script are in [the Github repository](https://github.com/cribli
 | :information_source: The bootstrap script has some debugging options which can be enabled by uncommenting lines at the top of the file. This will create a log file with very verbose information in the same working directory as the script. |
 |----------------------------------------------|
 
-#### 0. Run the bootstrap script:
+#### Run the bootstrap script:
 
 1. Make `bootstrap.sh` executable (`chmod +x bootstrap.sh`)
 2. Run: `./bootstrap.sh`
 3. Commit and deploy from Cribl to make sure the changes take effect
+4. Continue to the Importing Dashboards section.
 
 | :information_source: Common issues while running the script: |
 |----------------------------------------------|
 | - Be sure to commit and deploy, for the changes in Stream to take effect! |
 | - If the `ES_*_URL` endpoints require a TLS connection while the Certificate Authorities certificates are not in your local trust stores, you will have to adjust the curl commands to use the `-k` flag |
 
-## Manual Configuration
+</details>
+
+## Option 2 - Manual Configuration
+
+<details><summary>Here are the manual steps to configure Elasticsearch first and then Cribl Stream or Edge. Keep in mind that the script only works for Stream at the moment.</summary>
 
 #### 1. Elasticsearch Configuration
 
@@ -4350,6 +4358,8 @@ Repeat the following instructions for every Worker Group in your distributed env
   - Enable the source
 
 5. Commit & deploy if your Stream is in a distributed environment
+
+</details>
 
 ## Importing Dashboards
 
