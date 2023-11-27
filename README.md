@@ -6,13 +6,15 @@ Because Cribl lets you send Internal Metrics/Logs to external monitoring tools, 
 
 ## How It Works
 
-We connect [the Cribl Internal Metrics and Logs sources](https://docs.cribl.io/stream/sources-cribl-internal/#configuring-cribl-internal-logsmetrics-as-a-datasource) to an [Elasticsearch destination](https://docs.cribl.io/stream/destinations-elastic/).
-
-Elasticsearch will need to be prepared first before enabling the connection.
+We prepare Elasticsearch before sending the data with the appropriate mappings.
 
 Metrics are saved in [Time Series Data Stream (TSDS)](https://www.elastic.co/guide/en/elasticsearch/reference/current/tsds.html).
 
 Logs are saved in [Data Streams](https://www.elastic.co/guide/en/elasticsearch/reference/current/data-streams.html).
+
+We connect [the Cribl Internal Metrics and Logs sources](https://docs.cribl.io/stream/sources-cribl-internal/#configuring-cribl-internal-logsmetrics-as-a-datasource) to an [Elasticsearch destination](https://docs.cribl.io/stream/destinations-elastic/) using QuickConnect.
+
+We select a custom pipeline as a pre-processing pipeline for logs before sending to Elasticsearch.
 
 We have created some dashboards so you don’t have to and they are based upon those currently used by us Support Engineers at Cribl. You can import them into Kibana through an `.ndjson` file from the Kibana UI.
 
@@ -24,7 +26,7 @@ We have created some dashboards so you don’t have to and they are based upon t
 
 ## Getting started
 
-You can have Logs and Metrics configured automatically by using the `bootstrap.sh` script. Alternatively you can configure this manually as well.
+You can prepare Elasticsearch and the Cribl Stream configuration parts automatically using a `bootstrap.sh` script. Alternatively you can configure this manually as well.
 
 The dashboards need to be imported through Kibana’s UI.
 
@@ -32,29 +34,34 @@ You can then also choose to collect logs from the Leader separately as an option
 
 ## Bootstrap Script:
 
-Prerequisites for the script are: `Bash, jq, curl`
+You can skip this if you wish to run the steps manually.
+This script will run the manual steps for every Stream worker group, which could save some time.
+
+Prerequisites for the script are: `Stream, Bash, jq, curl`
 
 Files to run the script are in [the Github repository](https://github.com/criblio/elastic-cribl-monitoring).
 
 | :information_source: The following variables will need to be updated in the `.env` file: |
 |----------------------------------------------|
 
-`ES_ELASTIC_URL` - The endpoint to your Elasticsearch deployment (e.g. `https://elasticsearch.domain.com:9200`)
-`ES_KIBANA_URL` - The endpoint to your Kibana instance (e.g. `https://kibana.domain.com:5601`)
-`ES_CRIBL_URL` - The endpoint to your Cribl Leader node or your Cribl.Cloud URL .  (e.g. `https://cribl.domain.com:9000` or `https://main-happy-margulis-topxery.cribl.cloud`)
-`CRIBL_USER`, `CRIBL_PASSWORD` - **On-Premise specific options.** Your typical Username and Password combination for Authenticating through the Cribl UI.
-`CRIBL_CLIENT_ID` , `CRIBL_CLIENT_SECRET`- **Cribl.Cloud specific options.** The Client ID and secret created by [following instructions here](https://docs.cribl.io/stream/api-tutorials/#criblcloud-free-tier).
-`ES_ELASTIC_USER`, `ES_ELASTIC_PASSWORD` - Elasticsearch username and password to authenticate Elasticsearch API calls with.
-`ES_ELASTIC_BEARER_TOKEN` - (optional) If you want to use [token-based authentication service](https://www.elastic.co/guide/en/elasticsearch/reference/current/token-authentication-services.html) to authenticate Elasticsearch API calls (limited to service-accounts and token-service)
-`ES_ELASTIC_PASSWORD` - The password for your Cribl Writer user
-`ES_CRIBL_WORKERGROUP_NAME` - The names of worker groups that you want to apply the Logs and Metrics sources for. (e.g. `("default" "defaultHybrid")` or `("defaultHybrid")`)
-`ES_CRIBL_ELASTIC_OUTPUT_ID` (optional) - The ID of the Elasticsearch output that will be created/updated. This id will be the same across all your worker groups.
-`ES_CRIBL_CUSTOM_IDENTIFIER` - (optional) Any value for a custom identifier that you want to add, such as a data centre name. Will be added as a field to the events.
+| Variable(s)  | Description |
+| ------------- | ------------- |
+|`ES_ELASTIC_URL` | The endpoint to your Elasticsearch deployment (e.g. `https://elasticsearch.domain.com:9200`) |
+|`ES_KIBANA_URL` | The endpoint to your Kibana instance (e.g. `https://kibana.domain.com:5601`) |
+|`ES_CRIBL_URL` | The endpoint to your Cribl Leader node or your Cribl.Cloud URL .  (e.g. `https://cribl.domain.com:9000` or `https://main-happy-margulis-topxery.cribl.cloud`) |
+|`CRIBL_USER`, `CRIBL_PASSWORD` | **On-Premise specific options.** Your typical Username and Password combination for Authenticating through the Cribl UI. |
+| `CRIBL_CLIENT_ID` , `CRIBL_CLIENT_SECRET` | **Cribl.Cloud specific options.** The Client ID and secret created by [following instructions here](https://docs.cribl.io/stream/api-tutorials/#criblcloud-free-tier). |
+| `ES_ELASTIC_USER`, `ES_ELASTIC_PASSWORD` | Elasticsearch username and password to authenticate Elasticsearch API calls with. |
+| `ES_ELASTIC_BEARER_TOKEN` | (optional) If you want to use [token-based authentication service](https://www.elastic.co/guide/en/elasticsearch/reference/current/token-authentication-services.html) to authenticate Elasticsearch API calls (limited to service-accounts and token-service) |
+| `ES_ELASTIC_PASSWORD` | The password for your Cribl Writer user |
+| `ES_CRIBL_WORKERGROUP_NAME` | The worker groups for which to apply the bootstrap script to (e.g. `("default" "defaultHybrid")` for multiple or `("defaultHybrid")` for a single group) |
+| `ES_CRIBL_CUSTOM_IDENTIFIER` | (optional) Any value for a custom identifier that you want to add, such as a data centre name. Will be added as a field to the events. |
+| `ES_CRIBL_ELASTIC_OUTPUT_ID` (optional) | The ID of the Elasticsearch output that will be created/updated. This id will be the same across all your worker groups. |
 
 | :information_source: The bootstrap script has some debugging options which can be enabled by uncommenting lines at the top of the file. This will create a log file with very verbose information in the same working directory as the script. |
 |----------------------------------------------|
 
-#### Run the bootstrap script:
+#### 0. Run the bootstrap script:
 
 1. Make `bootstrap.sh` executable (`chmod +x bootstrap.sh`)
 2. Run: `./bootstrap.sh`
