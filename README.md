@@ -74,9 +74,6 @@ Please copy & paste and then execute the appropriate commands into your [Develop
 | :information_source: Please update the password for the user and/or the permissions of the corresponding user role. |
 |----------------------------------------------|
 
-| :information_source: The mappings specified in the component templates for Logs may need further adjustments going forward, as more mapping conflicts will be uncovered or more fields will be introduced in the future. Please keep an eye on the repository for updates. |
-|----------------------------------------------|
-
 <details><summary>1. Roles</summary>
 
 ```
@@ -4376,9 +4373,11 @@ Leader logs are currently NOT sent via the Internal Logs source, so for the lead
 
 The existing field mapping for logs is set to static and this has been deliberately the chosen for the following reasons:
 
-- prevent mapping conflicts and explosions
+- prevent excessive mapping conflicts and explosions
 - to keep in line with shard sizing across versions
-- to have a solid set of known fields as a starting point
+- to have a solid set of known fields as a starting point to choose from
+
+The mappings specified in the component templates may need further adjustments going forward. This is because the list of existing fields will continue to grow as more features are either enabled or added.
 
 #### General:
 
