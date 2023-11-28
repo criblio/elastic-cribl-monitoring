@@ -69,7 +69,7 @@ Files to run the script are in [the Github repository](https://github.com/cribli
 1. Make `bootstrap.sh` executable (`chmod +x bootstrap.sh`)
 2. Run: `./bootstrap.sh`
 3. Commit and deploy from Cribl to make sure the changes take effect
-4. Continue to the Importing Dashboards section.
+4. Continue to the Importing Saved Objects section.
 
 | :information_source: Common issues while running the script: |
 |----------------------------------------------|
@@ -4361,13 +4361,11 @@ Repeat the following instructions for every Worker Group in your distributed env
 
 </details>
 
-## Importing Dashboards
+## Importing Saved Objects
 
-Dashboards can be downloaded from the `ECM_dashboards.ndjson` file from the repository.
+Dashboards as well as Rules can be imported by uploading the `ECM_saved_objects.ndjson` file to Kibana.
 
-They can then be imported into Kibana using these instructions:
-
-- [Managed Saved Objects interface](https://www.elastic.co/guide/en/kibana/current/managing-saved-objects.html#_import)
+They can be imported through the [Managed Saved Objects Interface](https://www.elastic.co/guide/en/kibana/current/managing-saved-objects.html#_import).
 
 ## Optional Configuration
 
