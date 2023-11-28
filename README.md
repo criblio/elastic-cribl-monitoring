@@ -4396,12 +4396,12 @@ The mappings specified in the component templates may need further adjustments g
 
 #### General:
 
-1. Due to the static mapping settings, the size of the created Logs indices can grow quickly.
-  - It would be best to adjust the index templates with an Index Lifecycle Management (ILM) policy and add a rollover action
+1. Due to the static mapping on the logs data streams, the size of the created Logs indices can grow quickly.
+    - Consider adjusting the index templates and add an Index Lifecycle Management (ILM) policy with a rollover action
 2. Some mapping conflicts could still arise for specific unaccounted for logs
-  - The index mapping or post-processing pipeline attached to the Elasticsearch destination may have to be continuously updated
-3. Some interesting fields may have been missed and cannot be searched or aggregated
-  - You can add the field to the component template in the index template. You may have to reindex the existing index and/or do a rollover to have new data come in with the updated mapping
+    - The index mapping or pre-processing pipeline attached to the Elasticsearch destination may have to be continuously updated
+3. If some interesting fields cannot be searched or aggregated
+    - You can add the field to the component template in the index template. You may have to reindex the existing index and/or do a rollover to have new data come in with the updated mapping.
 
 4. The metrics index uses TSDS under the hood, so you can use Elasticsearch’s [Downsample](https://www.elastic.co/guide/en/elasticsearch/reference/current/downsampling.html) ILM action, to reduce storage over time as metrics become less relevant.
 
