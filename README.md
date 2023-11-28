@@ -4424,12 +4424,11 @@ The mappings specified in the component templates may need further adjustments g
 | Name | Description |
 | ------------- | ------------- |
 | Thruput Threshold | 200GB Total Thruput per worker process per day exceeded |
-| Memory Threshold | 2GB Memory Usage per worker process exceeded |
-| CPU Threshold | CPU Utilization by Worker Process averages above 95% |
-| PQ Threshold | Persistent Queue size is engaged or exceeded threshold |
-| PQ Decrease | Persistent Queue size is not decreasing |
-| Source Unhealthy | Destination has been marked as unhealthy |
-| Destination Unhealthy | Destination has been marked as unhealthy |
+| Memory Threshold | 2GB Memory Usage per worker process exceeded in the last 5 minutes |
+| CPU Threshold | CPU Utilization by Worker Process averages above 95% in the last 5 minutes |
+| PQ Threshold | Persistent Queue size is engaged or exceeded threshold in the last 5 minutes |
+| Source Unhealthy | Destination has been marked as unhealthy in the last 5 minutes |
+| Destination Unhealthy | Destination has been marked as unhealthy in the last 5 minutes |
 
 ## Searching Leader Logs
 
