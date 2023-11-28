@@ -1,15 +1,12 @@
 ##!/bin/bash
 #!/usr/bin/env bash
-#This script will setup Elasticsearch, Kibana and Cribl
+#This script will setup Elasticsearch and Cribl
+#Currently only works with Cribl Stream Groups, not Cribl Edge Fleets.
 #Requirements: jq, curl
-#
-#uncomment these two lines to enable some debug logging
+
+#uncomment the next two lines to enable some debug logging
 #exec 1>bootstrap_cribl_elasticsearch_log.txt 2>&1
 #export PS4='+[`date "+%y-%m-%d %H:%M:%S"`][${BASH_SOURCE}:${LINENO}]: ${FUNCNAME[0]:+${FUNCNAME[0]}(): }'; set -x;
-
-#install necessary Elasticsearch role and/or user with appropriate permissions.. 
-#install Elasticsearch component, index, lifecycle policy templates.. 
-#install kibana objects... dashboards, reports, other saved objects..
 
 #hack to add data to curl in variable form
 generate_post_data () {
@@ -18,7 +15,7 @@ ${1}
 EOF
 }
 
-#quick function to create the api endpoint for a group
+#quick function to create the api endpoint for a group based on the passed arguments
 cribl_group_endpoint () {
   echo "api/v1/m/${1}${2}"
 }
@@ -47,7 +44,7 @@ exec_cribl_curl () {
   curl -s -o /dev/null -H "${ajson}" -H "${cjson}" -H "${bearer}" "${headers[@]}" --data-binary "${output}"
 }
 
-#gets bearer token for either on-prem or cloud deployments. Needs to be run from the cribl cloud URL or cribl leader.
+#gets bearer token for either on-prem or cloud deployments. Needs to be run from the cribl cloud URL or cribl leader
 cribl_get_auth_token () {
   cloudheaders=(--url "https://login.cribl.cloud/oauth/token" -d '{"grant_type": "client_credentials", "client_id": "'"${CRIBL_CLIENT_ID}"'", "client_secret": "'"${CRIBL_CLIENT_SECRET}"'", "audience": "https://api.cribl.cloud"}')
   onpremheaders=(--url "${ES_CRIBL_URL}/api/v1/auth/login" -d '{"username":"'"${CRIBL_USERNAME}"'","password":"'"${CRIBL_PASSWORD}"'"}')
@@ -58,7 +55,7 @@ cribl_get_auth_token () {
   fi
 }
 
-#elasticsearch api requests
+#elasticsearch API requests
 es_requests () {
   exec_es_curl "${ES_ELASTIC_ROLE_CREATION_ENDPOINT}" "${ES_ELASTIC_ROLE_CREATION_DATA}"
   exec_es_curl "${ES_ELASTIC_USER_CREATION_ENDPOINT}" "${ES_ELASTIC_USER_CREATION_DATA}"
@@ -71,7 +68,7 @@ es_requests () {
   exec_es_curl "${ES_ELASTIC_INDEX_TEMPLATE_DOWNSAMPLE_METRICS_ENDPOINT}" "${ES_ELASTIC_INDEX_TEMPLATE_DOWNSAMPLE_METRICS_DATA}"
 }
 
-#cribl related API calls
+#cribl API requests
 cribl_requests () {
   #creating some variables for readability
   bearer="Authorization: Bearer $(cribl_get_auth_token)"
@@ -84,7 +81,7 @@ cribl_requests () {
   done
 }
 
-#goat function
+#goat function that runs elasticsearch and cribl requests.
 main () {
   #creating some variables for readability
   ajson="accept: application/json"
@@ -93,8 +90,7 @@ main () {
   es_requests
   echo "Done. Now starting Cribl setup"
   cribl_requests
-  #everything is created, but commit and deploy is still required
-  echo "The script has completed. Don't forget to Commit & Deploy! Happy reporting!"
+  echo "The script has completed. Don't forget to Commit & Deploy! Happy monitoring!"
 }
 
 #import .env
