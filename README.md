@@ -4407,9 +4407,9 @@ The mappings specified in the component templates may need further adjustments g
 
 4. The metrics index uses TSDS under the hood, so you can use Elasticsearch’s [Downsample](https://www.elastic.co/guide/en/elasticsearch/reference/current/downsampling.html) ILM action, to reduce storage over time as metrics become less relevant.
 
-## Available Dashboards
+#### Available Dashboards
 
-| Name  | Description |
+| Name | Description |
 | ------------- | ------------- |
 | Cribl Logs - Home  | Starting point for troubleshooting issues in a Cribl environment  |
 | Cribl Logs - Stats | Minutely Stats created from Internal Logs |
@@ -4419,6 +4419,17 @@ The mappings specified in the component templates may need further adjustments g
 | Cribl Metrics - Worker Processes | The overview of workers broken down by worker process |
 | Cribl Metrics - Source & Destination | The overview of incoming and outgoing data broken down by source and destination |
 
+#### Available Rules
+
+| Name | Description |
+| ------------- | ------------- |
+| Thruput Threshold | 200GB Total Thruput per worker process per day exceeded |
+| Memory Threshold | 2GB Memory Usage per worker process exceeded |
+| CPU Threshold | CPU Utilization by Worker Process averages above 95% |
+| PQ Threshold | Persistent Queue size is engaged or exceeded threshold |
+| PQ Decrease | Persistent Queue size is not decreasing |
+| Source Unhealthy | Destination has been marked as unhealthy |
+| Destination Unhealthy | Destination has been marked as unhealthy |
 
 ## Searching Leader Logs
 
