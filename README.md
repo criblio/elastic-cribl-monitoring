@@ -1,8 +1,8 @@
 ## Introduction
 
-If you want to look into the health of your Cribl Stream environment, you are usually pretty set with the [default Monitoring functionality](https://docs.cribl.io/stream/monitoring/) that Cribl offers out of the box. However the UI is limited in capabilities compared to some of the existing monitoring tools out there.
+If you want to look into the health of your Cribl Stream environment, you are usually pretty set with the default Monitoring functionality that Cribl offers out of the box.
 
-Because Cribl lets you send Internal Metrics/Logs to external monitoring tools, you can take advantage of the advanced searching, visualization and alerting capabilities of Elasticsearch.
+But Cribl also lets you send Internal Metrics/Logs to external monitoring tools, so you can take advantage of the advanced searching, visualization and alerting capabilities of Elasticsearch.
 
 ## How It Works
 
@@ -16,13 +16,12 @@ We connect [the Cribl Internal Metrics and Logs sources](https://docs.cribl.io/s
 
 We select a custom pipeline as a pre-processing pipeline for logs before sending to Elasticsearch.
 
-We have created some dashboards so you don’t have to and they are based upon those currently used by us Support Engineers at Cribl. You can import them into Kibana through an `.ndjson` file from the Kibana UI.
+We have created some dashboards and alerts for you, from the perspective of a Cribl Support Engineer that we can import into Kibana.
 
 ## Prerequisites
 
 - Elasticsearch version 8.7+
 - Kibana version 8.8.0+
-- Kibana settings require `xpack.encryptedSavedObjects.encryptionKey` to be set (instructions [here](https://www.elastic.co/guide/en/kibana/current/xpack-security-secure-saved-objects.html))
 
 ## Getting started
 
@@ -4366,6 +4365,8 @@ Repeat the following instructions for every Worker Group in your distributed env
 Dashboards as well as Rules can be imported by uploading the `ECM_saved_objects.ndjson` file to Kibana.
 
 They can be imported through the [Managed Saved Objects Interface](https://www.elastic.co/guide/en/kibana/current/managing-saved-objects.html#_import).
+
+Note that the setting [`xpack.encryptedSavedObjects.encryptionKey`](https://www.elastic.co/guide/en/kibana/current/xpack-security-secure-saved-objects.html) may need to be set.
 
 ## Optional Configuration
 
