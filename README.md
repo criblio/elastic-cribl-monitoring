@@ -1,6 +1,6 @@
 ## Introduction
 
-If you want to look into the health of your Cribl Stream environment, you are usually pretty set with the default Monitoring functionality that Cribl offers out of the box.
+If you want to look into the health of your Cribl environments, you are usually pretty set with the default Monitoring functionality that Cribl offers out of the box.
 
 But Cribl also lets you send Internal Metrics/Logs to external monitoring tools, so you can take advantage of the advanced searching, visualization and alerting capabilities of Elasticsearch.
 
@@ -20,26 +20,31 @@ We have created some dashboards and alerts for you, from the perspective of a Cr
 
 ## Prerequisites
 
-- Elasticsearch version 8.7+
-- Kibana version 8.8.0+
+Software:
+- Cribl Stream or Edge Version 3.3+
+- Elasticsearch and Kibana Version 8.8+
+
+License: 
+- Cribl Free License
+- Elastic Free License
 
 ## Getting started
 
 We provide 2 options to set you up quickly. 
 
-Option 1: You can prepare Elasticsearch and Cribl Stream automatically using a `bootstrap.sh` script. This is ideal for larger environments, to prevent having to configure many worker groups at the same time. 
+Option 1: You can prepare Elasticsearch and Cribl automatically using a `bootstrap.sh` script. This is ideal for larger environments, to prevent having to configure many worker groups at the same time. 
 
-Option 2: You can quickly configure Elasticsearch and Cribl Stream this manually as well.
+Option 2: You can quickly configure Elasticsearch and Cribl manually as well.
 
-For both options you will then have to manually commit and deploy Cribl Stream's changes and import the Dashboards into Kibana.
+For both options you will then have to manually commit and deploy Cribl's changes and import the Dashboards into Kibana.
 
 You can then also choose to collect logs from the Leader separately as an optional step.
 
 ## Option 1 - Bootstrap Script
 
-<details><summary>This script will run the manual steps for every Stream worker group, which could save some time.</summary>
+<details><summary>This script will run the manual steps for every Stream Worker Group or Edge Fleet, which could save some time.</summary>
 
-Prerequisites for the script are: `Stream, Bash, jq, curl`
+Prerequisites for the script are: `Bash, jq, curl`
 
 Files to run the script are in [the Github repository](https://github.com/criblio/elastic-cribl-monitoring).
 
@@ -56,7 +61,7 @@ Files to run the script are in [the Github repository](https://github.com/cribli
 | `ES_ELASTIC_USER`, `ES_ELASTIC_PASSWORD` | Elasticsearch username and password to authenticate Elasticsearch API calls with. |
 | `ES_ELASTIC_BEARER_TOKEN` | (optional) If you want to use [token-based authentication service](https://www.elastic.co/guide/en/elasticsearch/reference/current/token-authentication-services.html) to authenticate Elasticsearch API calls (limited to service-accounts and token-service) |
 | `ES_ELASTIC_PASSWORD` | The password for your Cribl Writer user |
-| `ES_CRIBL_WORKERGROUP_NAME` | The worker groups for which to apply the bootstrap script to (e.g. `("default" "defaultHybrid")` for multiple or `("defaultHybrid")` for a single group) |
+| `ES_CRIBL_WORKERGROUP_NAME` | The Stream groups or Edge Fleet names for which to apply the bootstrap script to (e.g. `("default" "defaultHybrid")` for multiple or `("defaultHybrid")` for a single group/fleet) |
 | `ES_CRIBL_CUSTOM_IDENTIFIER` | (optional) Any value for a custom identifier that you want to add, such as a data centre name. Will be added as a field to the events. |
 | `ES_CRIBL_ELASTIC_OUTPUT_ID` (optional) | The ID of the Elasticsearch output that will be created/updated. This id will be the same across all your worker groups. |
 
