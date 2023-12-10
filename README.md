@@ -70,7 +70,7 @@ Files to run the script are in [the Github repository](https://github.com/cribli
 3. Commit and deploy from Cribl to make sure the changes take effect
 4. Continue to the Importing Saved Objects section.
 
-| :information_source: Common issues while running the script: |
+| Common issues while running the script: |
 |----------------------------------------------|
 | - Be sure to commit and deploy, for the changes in Stream to take effect! |
 | - If the `ES_*_URL` endpoints require a TLS connection while the Certificate Authorities certificates are not in your local trust stores, you will have to adjust the curl commands to use the `-k` flag |
