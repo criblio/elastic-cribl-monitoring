@@ -20,13 +20,8 @@ We have created some dashboards and alerts for you, from the perspective of a Cr
 
 ## Prerequisites
 
-Software:
 - Cribl Stream or Edge Version 3.3+
 - Elasticsearch and Kibana Version 8.8+
-
-License: 
-- Cribl Free License
-- Elastic Free License
 
 ## Getting started
 
