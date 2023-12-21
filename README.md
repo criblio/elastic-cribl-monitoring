@@ -222,7 +222,7 @@ https://github.com/criblio/elastic-cribl-monitoring/blob/b6f4ead8bdd3045a94159e8
 
 ## Importing Saved Objects
 
-Dashboards as well as Rules can be imported by uploading the `ECM_saved_objects.ndjson` file to Kibana.
+Dashboards as well as Rules can be imported by uploading [the `ecm_saved_objects.ndjson` file](https://github.com/criblio/elastic-cribl-monitoring/blob/main/ecm_saved_objects.ndjson) to Kibana.
 
 They can be imported through the [Managed Saved Objects Interface](https://www.elastic.co/guide/en/kibana/current/managing-saved-objects.html#_import).
 
