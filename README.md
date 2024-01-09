@@ -145,6 +145,7 @@ https://github.com/criblio/elastic-cribl-monitoring/blob/b6f4ead8bdd3045a94159e8
 ```
 PUT _index_template/metrics-cribl-internal
 {
+  "priority": 500,
   "index_patterns": [
     "metrics-cribl-internal"
   ],
@@ -172,6 +173,7 @@ PUT _index_template/logs-cribl-internal
   "composed_of": [
     "logs-cribl-internal"
   ],
+  "priority": 101,
   "data_stream": {}
 }
 ```
