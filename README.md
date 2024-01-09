@@ -150,7 +150,7 @@ PUT _index_template/metrics-cribl-internal
   ],
   "composed_of": [
     "metrics-cribl-internal"
-  ]
+  ],
   "data_stream": { },
   "template": {
     "settings": {
