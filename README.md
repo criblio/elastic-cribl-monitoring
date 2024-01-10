@@ -199,6 +199,7 @@ https://github.com/criblio/elastic-cribl-monitoring/blob/b6f4ead8bdd3045a94159e8
   - Set the appropriate authentication settings
   - Set the DataStream to ``metrics-cribl-internal``
   - Configure backpressure behaviour to be persistent queueing
+  - Ensure the `Include document _id` advanced setting is disabled
 
 3. Configure the [Cribl Internal Metrics](https://docs.cribl.io/stream/sources-cribl-internal/#configuring) Source and from the source configuration page:
   - Navigate to **Processing Settings > Fields**
