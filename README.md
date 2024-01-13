@@ -325,3 +325,17 @@ Most dashboards included here contain drill downs, allowing you to go into more 
 For example: 
 
 Visualizations on the `Cribl Metrics - Overview` dashboard, allows you to drilldown into the `Cribl Metrics - Worker Processes` dashboard after observing that one of the workers shows signs of high CPU utilization.
+
+### About
+
+These dashboards should help you get started to monitor Cribl Products with Elastic. Feel free to contribute and shoot us a pull request. If you notice any issues, feel free to create an issue in this repository.
+
+You’re welcome to share feedback and ideas [in our community slack channel](https://cribl-community.slack.com/archives/C06AE510KC1). Are you not a member of our Slack Community? Head over to https://cribl-community.slack.com/
+
+Author: Robbert Hink
+
+Honorable Mentions:
+
+Ben Marcus - General Testing
+
+Jordyn Short - General Testing and contributor
