@@ -79,7 +79,7 @@ Files to run the script are in [the Github repository](https://github.com/cribli
 
 ## Option 2 - Manual Configuration
 
-<details><summary>Here are the manual steps to configure Elasticsearch first and then Cribl Stream or Edge. Keep in mind that the script only works for Stream at the moment.</summary>
+<details><summary>Here are the manual steps to configure Elasticsearch first and then Cribl Stream. The instructions here are for Stream, but will work for Edge fleets too.</summary>
 
 #### 1. Elasticsearch Configuration
 
