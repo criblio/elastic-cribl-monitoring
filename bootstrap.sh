@@ -1,7 +1,6 @@
 ##!/bin/bash
 #!/usr/bin/env bash
 #This script will setup Elasticsearch and Cribl
-#Currently only works with Cribl Stream Groups, not Cribl Edge Fleets.
 #Requirements: jq, curl
 
 #uncomment the next two lines to enable some debug logging
