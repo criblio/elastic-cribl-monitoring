@@ -112,7 +112,6 @@
         "disabled": false
       },
       {
-        "id": "eval",
         "filter": "reason && typeof reason !== \"object\"",
         "conf": {
           "add": [
@@ -123,6 +122,7 @@
             }
           ]
         },
+        "id": "eval",
         "description": "reason field: sometimes a string and sometimes an object",
         "groupId": "j4Eqzf",
         "disabled": false
@@ -441,7 +441,22 @@
         "disabled": false
       },
       {
+        "filter": "reason && reason.reason && reason.reason.reason && typeof reason.reason.reason != \"object\"",
+        "conf": {
+          "add": [
+            {
+              "disabled": false,
+              "name": "reason.reason.reason",
+              "value": "JSON.parse(`{\"message\": ${reason.reason.reason}}`)"
+            }
+          ]
+        },
         "id": "eval",
+        "description": "sometimes this value is text and sometimes its an object",
+        "disabled": false,
+        "groupId": "j4Eqzf"
+      },
+      {
         "filter": "reason && reason.reason && typeof reason.reason != \"object\"",
         "conf": {
           "add": [
@@ -452,6 +467,7 @@
             }
           ]
         },
+        "id": "eval",
         "description": "sometimes this value is text and sometimes its an object",
         "groupId": "j4Eqzf",
         "disabled": false

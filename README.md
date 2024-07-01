@@ -79,7 +79,7 @@ Files to run the script are in [the Github repository](https://github.com/cribli
 
 ## Option 2 - Manual Configuration
 
-<details><summary>Here are the manual steps to configure Elasticsearch first and then Cribl Stream or Edge. Keep in mind that the script only works for Stream at the moment.</summary>
+<details><summary>Here are the manual steps to configure Elasticsearch first and then Cribl Stream. The instructions here are for Stream, but will work for Edge fleets too.</summary>
 
 #### 1. Elasticsearch Configuration
 
@@ -145,12 +145,13 @@ https://github.com/criblio/elastic-cribl-monitoring/blob/b6f4ead8bdd3045a94159e8
 ```
 PUT _index_template/metrics-cribl-internal
 {
+  "priority": 500,
   "index_patterns": [
     "metrics-cribl-internal"
   ],
   "composed_of": [
     "metrics-cribl-internal"
-  ]
+  ],
   "data_stream": { },
   "template": {
     "settings": {
@@ -172,6 +173,7 @@ PUT _index_template/logs-cribl-internal
   "composed_of": [
     "logs-cribl-internal"
   ],
+  "priority": 101,
   "data_stream": {}
 }
 ```
@@ -197,6 +199,7 @@ https://github.com/criblio/elastic-cribl-monitoring/blob/b6f4ead8bdd3045a94159e8
   - Set the appropriate authentication settings
   - Set the DataStream to ``metrics-cribl-internal``
   - Configure backpressure behaviour to be persistent queueing
+  - Ensure the `Include document _id` advanced setting is disabled
 
 3. Configure the [Cribl Internal Metrics](https://docs.cribl.io/stream/sources-cribl-internal/#configuring) Source and from the source configuration page:
   - Navigate to **Processing Settings > Fields**
@@ -222,7 +225,7 @@ https://github.com/criblio/elastic-cribl-monitoring/blob/b6f4ead8bdd3045a94159e8
 
 ## Importing Saved Objects
 
-Dashboards as well as Rules can be imported by uploading the `ECM_saved_objects.ndjson` file to Kibana.
+Dashboards as well as Rules can be imported by uploading [the `ecm_saved_objects.ndjson` file](https://github.com/criblio/elastic-cribl-monitoring/blob/main/ecm_saved_objects.ndjson) to Kibana.
 
 They can be imported through the [Managed Saved Objects Interface](https://www.elastic.co/guide/en/kibana/current/managing-saved-objects.html#_import).
 
@@ -322,3 +325,17 @@ Most dashboards included here contain drill downs, allowing you to go into more 
 For example: 
 
 Visualizations on the `Cribl Metrics - Overview` dashboard, allows you to drilldown into the `Cribl Metrics - Worker Processes` dashboard after observing that one of the workers shows signs of high CPU utilization.
+
+### About
+
+These dashboards should help you get started to monitor Cribl Products with Elastic. Feel free to contribute and shoot us a pull request. If you notice any issues, feel free to create an issue in this repository.
+
+You’re welcome to share feedback and ideas [in our community slack channel](https://cribl-community.slack.com/archives/C06AE510KC1). Are you not a member of our Slack Community? Head over to https://cribl-community.slack.com/
+
+Author: Robbert Hink
+
+Honorable Mentions:
+
+Ben Marcus - General Testing
+
+Jordyn Short - General Testing and contributor
