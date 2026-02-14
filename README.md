@@ -128,6 +128,9 @@ Endpoint:
 Payload:
 https://github.com/criblio/elastic-cribl-monitoring/blob/b6f4ead8bdd3045a94159e86ed0f80098199b802/ecm_metrics_component_template.json#L1-L88
 
+Optional payload (nanosecond timestamp precision):
+`ecm_metrics_component_template_date_nanos.json`
+
 **Logs:**
 
 Endpoint:
@@ -204,10 +207,14 @@ https://github.com/criblio/elastic-cribl-monitoring/blob/b6f4ead8bdd3045a94159e8
 3. Configure the [Cribl Internal Metrics](https://docs.cribl.io/stream/sources-cribl-internal/#configuring) Source and from the source configuration page:
   - Navigate to **Processing Settings > Fields**
     - Set an `__index` field with value ``metrics-cribl-internal``
-    - (Optional) Add a `custom_id` field with a custom value, for example a data centre name
+    - Add a `custom_id` field with a deployment-specific value, for example `dc-north`, `dc-south`, `dc-east`, `dc-west`
   - Navigate to **Connected Destinations**
     - Set the *Pipeline/Pack* to `cribl_metrics_rollup`
     - Set the *Destination* to `elastic:cribl_elasticsearch`
+    - Ensure there is only **one** active destination connection to this Elasticsearch output
+  - Navigate to **Routing**
+    - Ensure `sendToRoutes` is disabled unless routing is explicitly required
+    - If routing is enabled, verify only one route can forward each metrics event to Elasticsearch
   - Enable the source
 
 4. Configure the [Cribl Internal Logs](https://docs.cribl.io/stream/internal-logs/) Source and from the source configuration page:
@@ -220,6 +227,13 @@ https://github.com/criblio/elastic-cribl-monitoring/blob/b6f4ead8bdd3045a94159e8
   - Enable the source
 
 5. Commit & deploy if your Stream is in a distributed environment
+
+6. Prevent TSDS duplicate conflicts (manual installs):
+  - Repeat the metrics source checks above for every Worker Group in every deployment.
+  - Ensure each deployment has a unique `custom_id` so identical hostnames across data centres do not collapse to the same TSDS identity.
+  - Ensure metrics events do not fan out to the same Elasticsearch output through both a direct connection and a route at the same time.
+  - In the Elasticsearch destination, keep `Include document _id` disabled.
+  - After changes, commit and deploy all affected groups before validating.
 
 </details>
 
@@ -268,6 +282,11 @@ The mappings specified in the component templates may need further adjustments g
     - You can add the field to the component template in the index template. You may have to reindex the existing index and/or do a rollover to have new data come in with the updated mapping.
 
 4. The metrics index uses TSDS under the hood, so you can use Elasticsearch’s [Downsample](https://www.elastic.co/guide/en/elasticsearch/reference/current/downsampling.html) ILM action, to reduce storage over time as metrics become less relevant.
+
+5. (Optional) If your environment emits metric timestamps with nanosecond precision, you can use `date_nanos` for `@timestamp` by applying `ecm_metrics_component_template_date_nanos.json` and then rolling over the `metrics-cribl-internal` data stream.
+    - This helps when events differ only below millisecond precision.
+    - This does **not** fix true duplicate events (same dimensions and same exact timestamp).
+    - Avoid partial template updates that only set `@timestamp`, because they can remove required TSDS dimension mappings.
 
 #### Available Dashboards
 
